@@ -57,4 +57,10 @@ public class UserController {
         return serverResponse;
     }
 
+    @RequestMapping("user/logout.do")
+    public ServerResponse logout(HttpSession session){
+        ServerResponse serverResponse=userService.logoutLogic(session);
+        return serverResponse;
+    }
+
 }

@@ -3,6 +3,8 @@ package com.ligouzi.service;
 import com.ligouzi.pojo.UserInfo;
 import com.ligouzi.utils.ServerResponse;
 
+import javax.servlet.http.HttpSession;
+
 public interface IUserService {
 
     /**
@@ -19,5 +21,10 @@ public interface IUserService {
      * 修改用户信息
      */
     public ServerResponse updateUserLogic(UserInfo userInfo);
+
+    /**
+     * 退出登录
+     */
+    public ServerResponse logoutLogic(HttpSession session);
 
 }

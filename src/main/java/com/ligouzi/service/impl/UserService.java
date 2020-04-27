@@ -15,7 +15,8 @@ import com.ligouzi.vo.UserInfoVO;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 @Service
 public class UserService implements IUserService {
@@ -27,6 +28,7 @@ public class UserService implements IUserService {
         this.userInfoMapper=userInfoMapper;
     }
 
+    //登录
     @Override
     public ServerResponse loginLogic(String username, String password){
 
@@ -54,6 +56,7 @@ public class UserService implements IUserService {
         return ServerResponse.createServerResponseBySuccess(convert(userInfo));
     }
 
+    //UserInfoVO
     private UserInfoVO convert(UserInfo userInfo){
 
         UserInfoVO userInfoVO=new UserInfoVO();
@@ -67,6 +70,7 @@ public class UserService implements IUserService {
 
     }
 
+    //注册
     @Override
     public ServerResponse registerLogic(UserInfo userInfo) {
 
@@ -124,6 +128,7 @@ public class UserService implements IUserService {
         return ServerResponse.createServerResponseBySuccess();
     }
 
+    //更新用户信息
     @Override
     public ServerResponse updateUserLogic(UserInfo userInfo){
 
@@ -139,6 +144,13 @@ public class UserService implements IUserService {
 
         return ServerResponse.createServerResponseBySuccess(userInfoVO);
 
+    }
+
+    //退出登录
+    @Override
+    public ServerResponse logoutLogic(HttpSession session) {
+        session.removeAttribute(Const.CURRENT_USER);
+        return ServerResponse.createServerResponseBySuccess(ResponseCode.EXISTS_SUCCESS.getCode(),ResponseCode.EXISTS_SUCCESS.getMsg());
     }
 
 }
